@@ -9,7 +9,7 @@
 [![Claude AI](https://img.shields.io/badge/Claude_3.5_Sonnet-Anthropic-D97706?style=for-the-badge)](https://www.anthropic.com/)
 [![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
 
-**Live Demo →** [atomcamp-smart-lms.vercel.app](https://hack-blond.vercel.app)
+**Live Demo →** [hack-tau-lac.vercel.app](https://hack-tau-lac.vercel.app)
 
 </div>
 
