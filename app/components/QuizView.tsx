@@ -58,7 +58,7 @@ export default function QuizView({
       <div className="text-center">
         <div
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-3"
-          style={{ backgroundColor: "#fff1ed", color: "#FF4D1C" }}
+          style={{ backgroundColor: "#f0fdfa", color: "#0d9488" }}
         >
           <span>🧠</span> Diagnostic Quiz
         </div>
@@ -79,7 +79,7 @@ export default function QuizView({
           </span>
           <span
             className="text-xs font-bold"
-            style={{ color: "#FF4D1C" }}
+            style={{ color: "#0d9488" }}
           >
             {answeredCount} / {data.questions.length} answered
           </span>
@@ -88,7 +88,7 @@ export default function QuizView({
           <div
             className="h-2 rounded-full transition-all duration-500"
             style={{
-              backgroundColor: "#FF4D1C",
+              backgroundColor: "#0d9488",
               width: `${(answeredCount / data.questions.length) * 100}%`,
             }}
           ></div>
@@ -107,7 +107,7 @@ export default function QuizView({
               className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-black text-white flex-shrink-0"
               style={{
                 backgroundColor: answers[question.id]
-                  ? "#FF4D1C"
+                  ? "#0d9488"
                   : "#E5E7EB",
                 color: answers[question.id] ? "white" : "#9CA3AF",
               }}
@@ -135,7 +135,7 @@ export default function QuizView({
                   } disabled:cursor-not-allowed`}
                   style={
                     isSelected
-                      ? { backgroundColor: "#FF4D1C", borderColor: "#FF4D1C" }
+                      ? { backgroundColor: "#0d9488", borderColor: "#0d9488" }
                       : {}
                   }
                 >
@@ -167,7 +167,7 @@ export default function QuizView({
           onClick={handleSubmit}
           disabled={!allAnswered || isLoading}
           className="w-full py-3.5 rounded-xl text-white font-bold text-sm tracking-wide transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-          style={{ backgroundColor: "#FF4D1C" }}
+          style={{ backgroundColor: "#0d9488" }}
         >
           {isLoading ? (
             <>

@@ -32,7 +32,7 @@ export default function RecommendationView({
   isLoading,
 }: RecommendationViewProps) {
   const courseColorMap: Record<string, string> = {
-    "AI Bootcamp": "#FF4D1C",
+    "AI Bootcamp": "#0d9488",
     "Data Analytics Bootcamp": "#7C3AED",
     "Agentic AI Bootcamp": "#0EA5E9",
     "Automation with AI Bootcamp": "#10B981",
@@ -42,7 +42,7 @@ export default function RecommendationView({
   const courseColor =
     Object.entries(courseColorMap).find(([key]) =>
       data.recommendedCourse.includes(key)
-    )?.[1] ?? "#FF4D1C";
+    )?.[1] ?? "#0d9488";
 
   return (
     <div className="fade-in w-full max-w-2xl mx-auto space-y-5">
@@ -50,7 +50,7 @@ export default function RecommendationView({
       <div className="text-center">
         <div
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-3"
-          style={{ backgroundColor: "#fff1ed", color: "#FF4D1C" }}
+          style={{ backgroundColor: "#f0fdfa", color: "#0d9488" }}
         >
           <span>✨</span> Your Personalised Path is Ready
         </div>
@@ -130,7 +130,7 @@ export default function RecommendationView({
                 }`}
                 style={
                   index === 0
-                    ? { backgroundColor: "#fff1ed", border: `1px solid ${courseColor}30` }
+                    ? { backgroundColor: "#f0fdfa", border: `1px solid ${courseColor}30` }
                     : {}
                 }
               >
@@ -183,7 +183,7 @@ export default function RecommendationView({
           onClick={onStartQuiz}
           disabled={isLoading}
           className="w-full py-3.5 rounded-xl font-bold text-sm tracking-wide transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-          style={{ backgroundColor: "#FF4D1C" }}
+          style={{ backgroundColor: "#0d9488" }}
         >
           {isLoading ? (
             <>
@@ -205,7 +205,7 @@ export default function RecommendationView({
         <a
           href="mailto:admissions@atomcamp.com"
           className="underline"
-          style={{ color: "#FF4D1C" }}
+          style={{ color: "#0d9488" }}
         >
           admissions@atomcamp.com
         </a>{" "}

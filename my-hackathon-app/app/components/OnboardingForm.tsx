@@ -70,7 +70,7 @@ export default function OnboardingForm({
       <div className="text-center mb-8">
         <div
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4"
-          style={{ backgroundColor: "#fff1ed", color: "#FF4D1C" }}
+          style={{ backgroundColor: "#f0fdfa", color: "#0d9488" }}
         >
           <span className="w-2 h-2 rounded-full bg-current"></span>
           AI-Powered Course Matching
@@ -78,7 +78,7 @@ export default function OnboardingForm({
         <h1 className="text-3xl font-black text-gray-900 mb-3 leading-tight">
           Find Your Perfect
           <br />
-          <span style={{ color: "#FF4D1C" }}>Learning Path</span>
+          <span style={{ color: "#0d9488" }}>Learning Path</span>
         </h1>
         <p className="text-gray-500 text-sm leading-relaxed max-w-sm mx-auto">
           Answer 5 quick questions and Claude AI will recommend the best
@@ -99,7 +99,7 @@ export default function OnboardingForm({
           >
             <div
               className="text-lg font-black"
-              style={{ color: "#FF4D1C" }}
+              style={{ color: "#0d9488" }}
             >
               {stat.value}
             </div>
@@ -114,7 +114,7 @@ export default function OnboardingForm({
           {/* Name */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-              Full Name <span style={{ color: "#FF4D1C" }}>*</span>
+              Full Name <span style={{ color: "#0d9488" }}>*</span>
             </label>
             <input
               type="text"
@@ -133,7 +133,7 @@ export default function OnboardingForm({
           {/* Background */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-              Educational Background <span style={{ color: "#FF4D1C" }}>*</span>
+              Educational Background <span style={{ color: "#0d9488" }}>*</span>
             </label>
             <select
               name="background"
@@ -168,7 +168,7 @@ export default function OnboardingForm({
           {/* Goal */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-              Career Goal <span style={{ color: "#FF4D1C" }}>*</span>
+              Career Goal <span style={{ color: "#0d9488" }}>*</span>
             </label>
             <select
               name="goal"
@@ -205,7 +205,7 @@ export default function OnboardingForm({
           {/* Experience */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-              Experience Level <span style={{ color: "#FF4D1C" }}>*</span>
+              Experience Level <span style={{ color: "#0d9488" }}>*</span>
             </label>
             <select
               name="experience"
@@ -236,7 +236,7 @@ export default function OnboardingForm({
           {/* Age */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-              Age Group <span style={{ color: "#FF4D1C" }}>*</span>
+              Age Group <span style={{ color: "#0d9488" }}>*</span>
             </label>
             <select
               name="age"
@@ -261,7 +261,7 @@ export default function OnboardingForm({
             type="submit"
             disabled={isLoading}
             className="w-full py-3.5 rounded-xl text-white font-bold text-sm tracking-wide transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
-            style={{ backgroundColor: "#FF4D1C" }}
+            style={{ backgroundColor: "#0d9488" }}
           >
             {isLoading ? (
               <>

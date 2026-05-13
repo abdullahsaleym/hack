@@ -18,7 +18,7 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2.5">
           <span
             className="text-xl font-black tracking-tight"
-            style={{ color: "#FF4D1C" }}
+            style={{ color: "#0d9488" }}
           >
             atomcamp
           </span>

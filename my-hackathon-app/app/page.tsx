@@ -86,7 +86,7 @@ function LoadingScreen({ message }: { message: string }) {
       <div className="relative">
         <div
           className="w-16 h-16 rounded-full border-4 border-t-transparent spinner"
-          style={{ borderColor: "#FF4D1C40", borderTopColor: "#FF4D1C" }}
+          style={{ borderColor: "#0d948840", borderTopColor: "#0d9488" }}
         ></div>
         <div
           className="absolute inset-0 flex items-center justify-center text-xl"
@@ -99,15 +99,15 @@ function LoadingScreen({ message }: { message: string }) {
         <div className="flex items-center justify-center gap-1 mt-2">
           <span
             className="w-2 h-2 rounded-full dot-1"
-            style={{ backgroundColor: "#FF4D1C" }}
+            style={{ backgroundColor: "#0d9488" }}
           ></span>
           <span
             className="w-2 h-2 rounded-full dot-2"
-            style={{ backgroundColor: "#FF4D1C" }}
+            style={{ backgroundColor: "#0d9488" }}
           ></span>
           <span
             className="w-2 h-2 rounded-full dot-3"
-            style={{ backgroundColor: "#FF4D1C" }}
+            style={{ backgroundColor: "#0d9488" }}
           ></span>
         </div>
       </div>
@@ -146,7 +146,7 @@ function StepIndicator({ step }: { step: Step }) {
               }`}
               style={
                 i <= currentIndex
-                  ? { backgroundColor: "#FF4D1C" }
+                  ? { backgroundColor: "#0d9488" }
                   : {}
               }
             >
@@ -164,7 +164,7 @@ function StepIndicator({ step }: { step: Step }) {
             <div
               className="w-12 h-0.5 mb-4 mx-1 transition-all"
               style={{
-                backgroundColor: i < currentIndex ? "#FF4D1C" : "#E5E7EB",
+                backgroundColor: i < currentIndex ? "#0d9488" : "#E5E7EB",
               }}
             ></div>
           )}
@@ -379,7 +379,7 @@ export default function Home() {
       <footer className="w-full border-t border-gray-100 bg-white py-4">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
           <span>
-            <span className="font-bold" style={{ color: "#FF4D1C" }}>
+            <span className="font-bold" style={{ color: "#0d9488" }}>
               atomcamp
             </span>{" "}
             Smart LMS · Built for atomcamp Hackathon 2025

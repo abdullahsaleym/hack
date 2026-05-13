@@ -3,9 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --atomcamp-orange: #FF4D1C;
-  --atomcamp-orange-dark: #e03d10;
-  --atomcamp-orange-light: #fff1ed;
+  --atomcamp-teal: #0d9488;
+  --atomcamp-teal-dark: #0f766e;
+  --atomcamp-teal-light: #f0fdfa;
 }
 
 @theme inline {
@@ -13,9 +13,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-atomcamp: #FF4D1C;
-  --color-atomcamp-dark: #e03d10;
-  --color-atomcamp-light: #fff1ed;
+  --color-atomcamp: #0d9488;
+  --color-atomcamp-dark: #0f766e;
+  --color-atomcamp-light: #f0fdfa;
 }
 
 body {
@@ -39,11 +39,11 @@ body {
   background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-  background: #FF4D1C;
+  background: #0d9488;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #e03d10;
+  background: #0f766e;
 }
 
 /* Loading spinner */

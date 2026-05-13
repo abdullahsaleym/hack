@@ -43,7 +43,7 @@ export default function GapAnalysisView({
     Excellent: { color: "#10B981", bg: "#ECFDF5", emoji: "🏆" },
     Good: { color: "#3B82F6", bg: "#EFF6FF", emoji: "👍" },
     "Needs Work": { color: "#F59E0B", bg: "#FFFBEB", emoji: "📚" },
-    Beginner: { color: "#FF4D1C", bg: "#fff1ed", emoji: "🌱" },
+    Beginner: { color: "#0d9488", bg: "#f0fdfa", emoji: "🌱" },
   };
 
   const perf =
@@ -56,7 +56,7 @@ export default function GapAnalysisView({
       <div className="text-center">
         <div
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-3"
-          style={{ backgroundColor: "#fff1ed", color: "#FF4D1C" }}
+          style={{ backgroundColor: "#f0fdfa", color: "#0d9488" }}
         >
           <span>📊</span> Your Gap Analysis
         </div>
@@ -123,7 +123,7 @@ export default function GapAnalysisView({
       {data.gapAnalysis && data.gapAnalysis.length > 0 ? (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
           <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center gap-2">
-            <span style={{ color: "#FF4D1C" }}>⚡</span> Concepts to Focus On
+            <span style={{ color: "#0d9488" }}>⚡</span> Concepts to Focus On
           </h4>
           <div className="space-y-4">
             {data.gapAnalysis.map((gap, index) => (
@@ -132,14 +132,14 @@ export default function GapAnalysisView({
                 className="rounded-xl p-4 border"
                 style={{
                   backgroundColor: "#fff8f6",
-                  borderColor: "#FF4D1C20",
+                  borderColor: "#0d948820",
                 }}
               >
                 {/* Missing concept */}
                 <div className="flex items-start gap-2 mb-2">
                   <span
                     className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-black text-white flex-shrink-0 mt-0.5"
-                    style={{ backgroundColor: "#FF4D1C" }}
+                    style={{ backgroundColor: "#0d9488" }}
                   >
                     {index + 1}
                   </span>
@@ -164,12 +164,12 @@ export default function GapAnalysisView({
                   {/* Next step */}
                   <div
                     className="flex items-start gap-2 rounded-lg p-2.5"
-                    style={{ backgroundColor: "#fff1ed" }}
+                    style={{ backgroundColor: "#f0fdfa" }}
                   >
-                    <span className="text-xs font-semibold uppercase tracking-wide w-20 flex-shrink-0 pt-0.5" style={{ color: "#FF4D1C" }}>
+                    <span className="text-xs font-semibold uppercase tracking-wide w-20 flex-shrink-0 pt-0.5" style={{ color: "#0d9488" }}>
                       Next Step
                     </span>
-                    <p className="text-xs font-medium leading-relaxed" style={{ color: "#FF4D1C" }}>
+                    <p className="text-xs font-medium leading-relaxed" style={{ color: "#0d9488" }}>
                       {gap.nextStep}
                     </p>
                   </div>
@@ -211,7 +211,7 @@ export default function GapAnalysisView({
         </p>
         <div
           className="mt-4 p-3 rounded-xl text-sm font-medium"
-          style={{ backgroundColor: "#FF4D1C15", color: "#FF4D1C" }}
+          style={{ backgroundColor: "#0d948815", color: "#0d9488" }}
         >
           💡 {data.encouragement}
         </div>
@@ -222,14 +222,14 @@ export default function GapAnalysisView({
         <a
           href="mailto:admissions@atomcamp.com"
           className="flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-sm font-bold transition-all hover:bg-gray-50"
-          style={{ borderColor: "#FF4D1C", color: "#FF4D1C" }}
+          style={{ borderColor: "#0d9488", color: "#0d9488" }}
         >
           <span>✉️</span> Enrol Now
         </a>
         <button
           onClick={onStartOver}
           className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold text-white transition-all hover:opacity-90"
-          style={{ backgroundColor: "#FF4D1C" }}
+          style={{ backgroundColor: "#0d9488" }}
         >
           <span>↩</span> Start Over
         </button>
@@ -238,7 +238,7 @@ export default function GapAnalysisView({
       {/* atomcamp footer */}
       <div className="text-center text-xs text-gray-400 pb-6 space-y-1">
         <p>
-          <span className="font-bold" style={{ color: "#FF4D1C" }}>
+          <span className="font-bold" style={{ color: "#0d9488" }}>
             atomcamp
           </span>{" "}
           · 70+ corporate clients · Careem, HBL, UBL, Engro, Jazz, Telenor,
@@ -252,7 +252,7 @@ export default function GapAnalysisView({
           <a
             href="mailto:admissions@atomcamp.com"
             className="underline"
-            style={{ color: "#FF4D1C" }}
+            style={{ color: "#0d9488" }}
           >
             admissions@atomcamp.com
           </a>
