@@ -1,137 +1,132 @@
 import type { Metadata } from "next";
+import { mockStudents, kpis, type Status } from "@/lib/mockData";
 
 export const metadata: Metadata = {
   title: "Instructor Dashboard — atomcamp Smart LMS",
-  description: "Actionable intelligence for atomcamp instructors",
+  description: "Real-time learner intelligence for atomcamp instructors",
 };
 
-// ── Mock Data ──────────────────────────────────────────────────────────────
+// ── Helpers ────────────────────────────────────────────────────────────────
 
-type RiskLevel = "High Risk" | "Monitor" | "On Track";
-
-interface Student {
-  id: number;
-  name: string;
-  goal: string;
-  bootcamp: string;
-  quizScore: number;
-  quizTotal: number;
-  topGap: string;
-  risk: RiskLevel;
-  lastActive: string;
+function statusStyles(status: Status) {
+  switch (status) {
+    case "At Risk":
+      return {
+        badge: "bg-red-100 text-red-700 border border-red-200",
+        dot: "bg-red-500",
+        bar: "bg-red-500",
+      };
+    case "Needs Attention":
+      return {
+        badge: "bg-yellow-100 text-yellow-700 border border-yellow-200",
+        dot: "bg-yellow-500",
+        bar: "bg-yellow-400",
+      };
+    case "On Track":
+      return {
+        badge: "bg-teal-100 text-teal-700 border border-teal-200",
+        dot: "bg-teal-500",
+        bar: "bg-teal-500",
+      };
+    case "Excelling":
+      return {
+        badge: "bg-green-100 text-green-700 border border-green-200",
+        dot: "bg-green-500",
+        bar: "bg-green-500",
+      };
+  }
 }
 
-const students: Student[] = [
-  {
-    id: 1,
-    name: "Abdullah",
-    goal: "Learn Agentic AI",
-    bootcamp: "Agentic AI Bootcamp",
-    quizScore: 2,
-    quizTotal: 4,
-    topGap: "Advanced Prompting",
-    risk: "High Risk",
-    lastActive: "Today",
-  },
-  {
-    id: 2,
-    name: "Sara Malik",
-    goal: "Transition into tech from another field",
-    bootcamp: "Agentic AI Bootcamp",
-    quizScore: 2,
-    quizTotal: 4,
-    topGap: "REST API Concepts",
-    risk: "Monitor",
-    lastActive: "Yesterday",
-  },
-  {
-    id: 3,
-    name: "Ahmed Raza",
-    goal: "Start freelancing on Upwork",
-    bootcamp: "Data Analytics Bootcamp",
-    quizScore: 3,
-    quizTotal: 4,
-    topGap: "DAX Calculated Columns",
-    risk: "Monitor",
-    lastActive: "Today",
-  },
-  {
-    id: 4,
-    name: "Usman Tariq",
-    goal: "Build AI automation for my business",
-    bootcamp: "Automation with AI Bootcamp",
-    quizScore: 4,
-    quizTotal: 4,
-    topGap: "None — Perfect Score",
-    risk: "On Track",
-    lastActive: "2 days ago",
-  },
-  {
-    id: 5,
-    name: "Fatima Khan",
-    goal: "Get a job in AI / Data Science",
-    bootcamp: "AI Bootcamp (Cohort 18)",
-    quizScore: 4,
-    quizTotal: 4,
-    topGap: "None — Perfect Score",
-    risk: "On Track",
-    lastActive: "Today",
-  },
-];
+// ── Sub-components (Server-safe — no event handlers) ──────────────────────
 
-// ── Derived KPIs ───────────────────────────────────────────────────────────
-
-const totalLearners = students.length;
-const avgScore = Math.round(
-  students.reduce((sum, s) => sum + (s.quizScore / s.quizTotal) * 100, 0) /
-    students.length
-);
-const highRiskCount = students.filter((s) => s.risk === "High Risk").length;
-
-// ── Risk Badge ─────────────────────────────────────────────────────────────
-
-function RiskBadge({ risk }: { risk: RiskLevel }) {
-  if (risk === "High Risk") {
-    return (
-      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-red-600 text-white shadow-sm shadow-red-400">
-        <span className="w-1.5 h-1.5 rounded-full bg-red-200 animate-pulse"></span>
-        High Risk
-      </span>
-    );
-  }
-  if (risk === "Monitor") {
-    return (
-      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
-        <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
-        Monitor
-      </span>
-    );
-  }
+function KpiCard({
+  emoji,
+  label,
+  value,
+  sub,
+  accent,
+}: {
+  emoji: string;
+  label: string;
+  value: string | number;
+  sub: string;
+  accent: string;
+}) {
   return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
-      <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-      On Track
+    <div
+      className="rounded-2xl border p-5 flex items-center gap-4"
+      style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
+    >
+      <div
+        className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+        style={{ backgroundColor: "#002333" }}
+      >
+        {emoji}
+      </div>
+      <div>
+        <p
+          className="text-xs font-semibold uppercase tracking-wider"
+          style={{ color: "#5a9ab0" }}
+        >
+          {label}
+        </p>
+        <p className={`text-3xl font-black leading-none mt-1 ${accent}`}>
+          {value}
+        </p>
+        <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
+          {sub}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ProgressBar({ value, barClass }: { value: number; barClass: string }) {
+  return (
+    <div className="w-full">
+      <div className="flex justify-between mb-1">
+        <span className="text-xs font-medium" style={{ color: "#5a9ab0" }}>
+          Progress
+        </span>
+        <span className="text-xs font-bold text-white">{value}%</span>
+      </div>
+      <div
+        className="w-full rounded-full h-2"
+        style={{ backgroundColor: "#002333" }}
+      >
+        <div
+          className={`h-2 rounded-full transition-all ${barClass}`}
+          style={{ width: `${value}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function StatusBadge({ status }: { status: Status }) {
+  const s = statusStyles(status);
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${s.badge}`}
+    >
+      <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${s.dot}`} />
+      {status}
     </span>
   );
 }
 
-// ── Score Bar ──────────────────────────────────────────────────────────────
-
-function ScoreBar({ score, total }: { score: number; total: number }) {
-  const pct = Math.round((score / total) * 100);
-  const color =
-    pct >= 75 ? "#10B981" : pct >= 50 ? "#F59E0B" : "#EF4444";
+function Avatar({ name }: { name: string }) {
+  const initials = name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2);
   return (
-    <div className="flex items-center gap-2 min-w-[100px]">
-      <div className="flex-1 bg-gray-100 rounded-full h-1.5">
-        <div
-          className="h-1.5 rounded-full transition-all"
-          style={{ width: `${pct}%`, backgroundColor: color }}
-        />
-      </div>
-      <span className="text-xs font-bold text-gray-700 w-12 text-right">
-        {score}/{total} ({pct}%)
-      </span>
+    <div
+      className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-black flex-shrink-0"
+      style={{ backgroundColor: "#99d930", color: "#002333" }}
+    >
+      {initials}
     </div>
   );
 }
@@ -141,7 +136,7 @@ function ScoreBar({ score, total }: { score: number; total: number }) {
 export default function InstructorDashboard() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#002333" }}>
-      {/* Top nav */}
+      {/* ── Header ── */}
       <header
         className="border-b sticky top-0 z-10"
         style={{ backgroundColor: "#002333", borderColor: "#003a52" }}
@@ -151,7 +146,9 @@ export default function InstructorDashboard() {
             <span className="text-xl font-black" style={{ color: "#99d930" }}>
               atomcamp
             </span>
-            <span className="hidden sm:block" style={{ color: "#004d6b" }}>|</span>
+            <span className="hidden sm:block" style={{ color: "#004d6b" }}>
+              |
+            </span>
             <span
               className="hidden sm:block text-sm font-semibold"
               style={{ color: "#99d930" }}
@@ -160,7 +157,10 @@ export default function InstructorDashboard() {
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs hidden sm:block" style={{ color: "#5a9ab0" }}>
+            <span
+              className="text-xs hidden sm:block"
+              style={{ color: "#5a9ab0" }}
+            >
               Live · Updated just now
             </span>
             <div
@@ -174,7 +174,7 @@ export default function InstructorDashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Page title */}
+        {/* ── Page Title ── */}
         <div>
           <h1 className="text-2xl font-black" style={{ color: "#99d930" }}>
             Learner Intelligence
@@ -185,322 +185,110 @@ export default function InstructorDashboard() {
           </p>
         </div>
 
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {/* Total Learners */}
-          <div
-            className="rounded-2xl border p-5 flex items-center gap-4"
-            style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
-          >
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-              style={{ backgroundColor: "#002333" }}
-            >
-              👥
-            </div>
-            <div>
-              <p
-                className="text-xs font-semibold uppercase tracking-wider"
-                style={{ color: "#5a9ab0" }}
-              >
-                Total Active Learners
-              </p>
-              <p
-                className="text-3xl font-black leading-none mt-1"
-                style={{ color: "#99d930" }}
-              >
-                {totalLearners}
-              </p>
-              <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
-                Across 4 bootcamps
-              </p>
-            </div>
-          </div>
-
-          {/* Avg Quiz Score */}
-          <div
-            className="rounded-2xl border p-5 flex items-center gap-4"
-            style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
-          >
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-              style={{ backgroundColor: "#002333" }}
-            >
-              📊
-            </div>
-            <div>
-              <p
-                className="text-xs font-semibold uppercase tracking-wider"
-                style={{ color: "#5a9ab0" }}
-              >
-                Average Quiz Score
-              </p>
-              <p
-                className="text-3xl font-black leading-none mt-1"
-                style={{
-                  color:
-                    avgScore >= 75
-                      ? "#10B981"
-                      : avgScore >= 50
-                      ? "#F59E0B"
-                      : "#EF4444",
-                }}
-              >
-                {avgScore}%
-              </p>
-              <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
-                Cohort diagnostic average
-              </p>
-            </div>
-          </div>
-
-          {/* High Risk */}
-          <div
-            className="rounded-2xl border p-5 flex items-center gap-4"
-            style={{ backgroundColor: "#003a52", borderColor: "#7f1d1d" }}
-          >
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-              style={{ backgroundColor: "#450a0a" }}
-            >
-              🚨
-            </div>
-            <div>
-              <p
-                className="text-xs font-semibold uppercase tracking-wider"
-                style={{ color: "#5a9ab0" }}
-              >
-                High-Risk Students
-              </p>
-              <p className="text-3xl font-black text-red-500 leading-none mt-1">
-                {highRiskCount}
-              </p>
-              <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
-                Need immediate intervention
-              </p>
-            </div>
-          </div>
+        {/* ── KPI Cards ── */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <KpiCard
+            emoji="👥"
+            label="Active Learners"
+            value={kpis.totalLearners}
+            sub="Across 4 bootcamps"
+            accent="text-white"
+          />
+          <KpiCard
+            emoji="📈"
+            label="Avg. Progress"
+            value={`${kpis.avgProgress}%`}
+            sub="Cohort average"
+            accent="text-teal-400"
+          />
+          <KpiCard
+            emoji="🚨"
+            label="At Risk"
+            value={kpis.atRiskCount}
+            sub="Need intervention"
+            accent="text-red-400"
+          />
+          <KpiCard
+            emoji="🏆"
+            label="Excelling"
+            value={kpis.excellingCount}
+            sub="Peer mentor candidates"
+            accent="text-green-400"
+          />
         </div>
 
-        {/* Actionable Intelligence Table */}
-        <div
-          className="rounded-2xl border overflow-hidden"
-          style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
-        >
-          {/* Table header */}
-          <div
-            className="px-5 py-4 border-b flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
-            style={{ borderColor: "#004d6b" }}
+        {/* ── Student Grid ── */}
+        <div>
+          <h2
+            className="text-base font-bold mb-4"
+            style={{ color: "#99d930" }}
           >
-            <div>
-              <h2 className="text-base font-bold" style={{ color: "#99d930" }}>
-                Learner Gap Analysis
-              </h2>
-              <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
-                Sorted by intervention priority
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-red-600 text-white">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-200"></span>
-                {highRiskCount} High Risk
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
-                {students.filter((s) => s.risk === "Monitor").length} Monitor
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                {students.filter((s) => s.risk === "On Track").length} On Track
-              </span>
-            </div>
-          </div>
-
-          {/* Desktop table */}
-          <div className="hidden md:block overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr
-                  className="border-b"
-                  style={{ backgroundColor: "#002333", borderColor: "#004d6b" }}
-                >
-                  <th
-                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
-                    style={{ color: "#5a9ab0" }}
-                  >
-                    Learner
-                  </th>
-                  <th
-                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
-                    style={{ color: "#5a9ab0" }}
-                  >
-                    Enrolled Bootcamp
-                  </th>
-                  <th
-                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
-                    style={{ color: "#5a9ab0" }}
-                  >
-                    Quiz Score
-                  </th>
-                  <th
-                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
-                    style={{ color: "#5a9ab0" }}
-                  >
-                    Top Knowledge Gap
-                  </th>
-                  <th
-                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
-                    style={{ color: "#5a9ab0" }}
-                  >
-                    Status
-                  </th>
-                  <th
-                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
-                    style={{ color: "#5a9ab0" }}
-                  >
-                    Last Active
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {[...students]
-                  .sort((a, b) => {
-                    const order: Record<RiskLevel, number> = {
-                      "High Risk": 0,
-                      Monitor: 1,
-                      "On Track": 2,
-                    };
-                    return order[a.risk] - order[b.risk];
-                  })
-                  .map((student) => (
-                    <tr
-                      key={student.id}
-                      className="border-b transition-colors hover:bg-[#002d42]"
-                      style={{
-                        borderColor: "#004d6b",
-                      }}
-                    >
-                      {/* Learner */}
-                      <td className="px-5 py-4">
-                        <div className="flex items-center gap-3">
-                          <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black flex-shrink-0"
-                            style={{
-                              backgroundColor: "#99d930",
-                              color: "#002333",
-                            }}
-                          >
-                            {student.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </div>
-                          <div>
-                            <p className="font-semibold text-white">
-                              {student.name}
-                            </p>
-                            <p className="text-xs" style={{ color: "#5a9ab0" }}>
-                              {student.goal}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* Bootcamp */}
-                      <td className="px-5 py-4">
-                        <span className="font-medium" style={{ color: "#99d930" }}>
-                          {student.bootcamp}
-                        </span>
-                      </td>
-
-                      {/* Score */}
-                      <td className="px-5 py-4">
-                        <ScoreBar
-                          score={student.quizScore}
-                          total={student.quizTotal}
-                        />
-                      </td>
-
-                      {/* Gap */}
-                      <td className="px-5 py-4">
-                        <span
-                          className="text-sm font-medium"
-                          style={{
-                            color: student.topGap.startsWith("None")
-                              ? "#10B981"
-                              : "#e2e8f0",
-                          }}
-                        >
-                          {student.topGap}
-                        </span>
-                      </td>
-
-                      {/* Risk */}
-                      <td className="px-5 py-4">
-                        <RiskBadge risk={student.risk} />
-                      </td>
-
-                      {/* Last active */}
-                      <td className="px-5 py-4 text-xs" style={{ color: "#5a9ab0" }}>
-                        {student.lastActive}
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Mobile cards */}
-          <div className="md:hidden divide-y" style={{ borderColor: "#004d6b" }}>
-            {[...students]
-              .sort((a, b) => {
-                const order: Record<RiskLevel, number> = {
-                  "High Risk": 0,
-                  Monitor: 1,
-                  "On Track": 2,
-                };
-                return order[a.risk] - order[b.risk];
-              })
-              .map((student) => (
+            Learner Gap Analysis
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {mockStudents.map((student) => {
+              const s = statusStyles(student.status);
+              return (
                 <div
                   key={student.id}
-                  className="p-4 space-y-3"
-                  style={{ borderColor: "#004d6b" }}
+                  className="rounded-2xl border p-5 space-y-4"
+                  style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
                 >
-                  <div className="flex items-center justify-between">
+                  {/* Top row */}
+                  <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div
-                        className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-black flex-shrink-0"
-                        style={{ backgroundColor: "#99d930", color: "#002333" }}
-                      >
-                        {student.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </div>
+                      <Avatar name={student.name} />
                       <div>
-                        <p className="font-semibold text-white text-sm">
+                        <p className="font-bold text-white text-sm">
                           {student.name}
                         </p>
-                        <p className="text-xs" style={{ color: "#5a9ab0" }}>
-                          {student.goal}
+                        <p
+                          className="text-xs mt-0.5"
+                          style={{ color: "#99d930" }}
+                        >
+                          {student.bootcamp}
                         </p>
                       </div>
                     </div>
-                    <RiskBadge risk={student.risk} />
+                    <StatusBadge status={student.status} />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs">
+                  {/* Progress bar */}
+                  <ProgressBar
+                    value={student.progress}
+                    barClass={s.bar}
+                  />
+
+                  {/* Details */}
+                  <div className="grid grid-cols-2 gap-3 text-xs">
                     <div>
                       <p
                         className="font-semibold uppercase tracking-wide mb-0.5"
                         style={{ color: "#5a9ab0" }}
                       >
-                        Bootcamp
+                        Next Topic
                       </p>
-                      <p className="font-medium" style={{ color: "#99d930" }}>
-                        {student.bootcamp}
+                      <p className="font-medium text-white">
+                        {student.nextTopic}
                       </p>
+                    </div>
+                    <div>
+                      <p
+                        className="font-semibold uppercase tracking-wide mb-0.5"
+                        style={{ color: "#5a9ab0" }}
+                      >
+                        Quiz Score
+                      </p>
+                      <p className="font-bold text-white">{student.quizScore}</p>
+                    </div>
+                    <div>
+                      <p
+                        className="font-semibold uppercase tracking-wide mb-0.5"
+                        style={{ color: "#5a9ab0" }}
+                      >
+                        Goal
+                      </p>
+                      <p className="font-medium text-white">{student.goal}</p>
                     </div>
                     <div>
                       <p
@@ -509,47 +297,18 @@ export default function InstructorDashboard() {
                       >
                         Last Active
                       </p>
-                      <p className="text-white">{student.lastActive}</p>
+                      <p className="font-medium text-white">
+                        {student.lastActive}
+                      </p>
                     </div>
                   </div>
-
-                  <div>
-                    <p
-                      className="text-xs font-semibold uppercase tracking-wide mb-1"
-                      style={{ color: "#5a9ab0" }}
-                    >
-                      Quiz Score
-                    </p>
-                    <ScoreBar
-                      score={student.quizScore}
-                      total={student.quizTotal}
-                    />
-                  </div>
-
-                  <div>
-                    <p
-                      className="text-xs font-semibold uppercase tracking-wide mb-0.5"
-                      style={{ color: "#5a9ab0" }}
-                    >
-                      Top Knowledge Gap
-                    </p>
-                    <p
-                      className="text-sm font-medium"
-                      style={{
-                        color: student.topGap.startsWith("None")
-                          ? "#10B981"
-                          : "#e2e8f0",
-                      }}
-                    >
-                      {student.topGap}
-                    </p>
-                  </div>
                 </div>
-              ))}
+              );
+            })}
           </div>
         </div>
 
-        {/* Intervention Recommendations */}
+        {/* ── Recommended Actions ── */}
         <div
           className="rounded-2xl p-5 border"
           style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
@@ -565,11 +324,11 @@ export default function InstructorDashboard() {
               <span className="text-red-400 text-lg flex-shrink-0">🚨</span>
               <div>
                 <p className="text-sm font-semibold text-red-300">
-                  Immediate: Reach out to Abdullah
+                  Immediate: Reach out to Abdullah S.
                 </p>
                 <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
-                  Scored 50% on the Agentic AI diagnostic. Key gap is Advanced
-                  Prompting — schedule a 1:1 before Module 2.
+                  Only 42% through the bootcamp. Top gap: Advanced Prompt
+                  Engineering — schedule a 1:1 before Module 3.
                 </p>
               </div>
             </div>
@@ -577,11 +336,11 @@ export default function InstructorDashboard() {
               <span className="text-yellow-400 text-lg flex-shrink-0">👀</span>
               <div>
                 <p className="text-sm font-semibold text-yellow-300">
-                  Monitor: Sara Malik & Ahmed Raza need targeted support
+                  Monitor: Sara Malik needs targeted support
                 </p>
                 <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
-                  Sara needs REST API pre-reading before Module 3. Ahmed should
-                  revisit DAX Calculated Columns before the next Power BI session.
+                  REST API concepts still unaddressed. Share pre-reading
+                  materials before Module 4 live session.
                 </p>
               </div>
             </div>
@@ -589,19 +348,21 @@ export default function InstructorDashboard() {
               <span className="text-green-400 text-lg flex-shrink-0">🏆</span>
               <div>
                 <p className="text-sm font-semibold text-green-300">
-                  Highlight: Usman Tariq & Fatima Khan scored 100%
+                  Highlight: Fatima Khan scored 100% — peer mentor candidate
                 </p>
                 <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
-                  Both are strong candidates for peer mentorship roles in their
-                  respective bootcamp cohorts.
+                  Strong candidate to mentor at-risk students in Cohort 18.
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="text-center text-xs pb-4" style={{ color: "#5a9ab0" }}>
+        {/* ── Footer ── */}
+        <footer
+          className="text-center text-xs pb-4"
+          style={{ color: "#5a9ab0" }}
+        >
           <span className="font-bold" style={{ color: "#99d930" }}>
             atomcamp
           </span>{" "}
