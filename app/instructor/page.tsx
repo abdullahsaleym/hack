@@ -136,43 +136,6 @@ function Avatar({ name }: { name: string }) {
 export default function InstructorDashboard() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#002333" }}>
-      {/* ── Header ── */}
-      <header
-        className="border-b sticky top-0 z-10"
-        style={{ backgroundColor: "#002333", borderColor: "#003a52" }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-xl font-black" style={{ color: "#99d930" }}>
-              atomcamp
-            </span>
-            <span className="hidden sm:block" style={{ color: "#004d6b" }}>
-              |
-            </span>
-            <span
-              className="hidden sm:block text-sm font-semibold"
-              style={{ color: "#99d930" }}
-            >
-              Instructor Dashboard
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span
-              className="text-xs hidden sm:block"
-              style={{ color: "#5a9ab0" }}
-            >
-              Live · Updated just now
-            </span>
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-              style={{ backgroundColor: "#003a52", color: "#99d930" }}
-            >
-              I
-            </div>
-          </div>
-        </div>
-      </header>
-
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* ── Page Title ── */}
         <div>
