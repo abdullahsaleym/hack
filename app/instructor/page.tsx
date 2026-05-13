@@ -24,28 +24,17 @@ interface Student {
 const students: Student[] = [
   {
     id: 1,
-    name: "Fatima Khan",
-    goal: "Get a job in AI / Data Science",
-    bootcamp: "AI Bootcamp (Cohort 18)",
-    quizScore: 1,
+    name: "Abdullah",
+    goal: "Learn Agentic AI",
+    bootcamp: "Agentic AI Bootcamp",
+    quizScore: 2,
     quizTotal: 4,
-    topGap: "Python Loops & Functions",
+    topGap: "Advanced Prompting",
     risk: "High Risk",
     lastActive: "Today",
   },
   {
     id: 2,
-    name: "Ahmed Raza",
-    goal: "Start freelancing on Upwork",
-    bootcamp: "Data Analytics Bootcamp",
-    quizScore: 3,
-    quizTotal: 4,
-    topGap: "DAX Calculated Columns",
-    risk: "On Track",
-    lastActive: "Today",
-  },
-  {
-    id: 3,
     name: "Sara Malik",
     goal: "Transition into tech from another field",
     bootcamp: "Agentic AI Bootcamp",
@@ -54,6 +43,17 @@ const students: Student[] = [
     topGap: "REST API Concepts",
     risk: "Monitor",
     lastActive: "Yesterday",
+  },
+  {
+    id: 3,
+    name: "Ahmed Raza",
+    goal: "Start freelancing on Upwork",
+    bootcamp: "Data Analytics Bootcamp",
+    quizScore: 3,
+    quizTotal: 4,
+    topGap: "DAX Calculated Columns",
+    risk: "Monitor",
+    lastActive: "Today",
   },
   {
     id: 4,
@@ -68,14 +68,14 @@ const students: Student[] = [
   },
   {
     id: 5,
-    name: "Zainab Hussain",
-    goal: "Upskill at my current job",
-    bootcamp: "Data Analytics Bootcamp",
-    quizScore: 1,
+    name: "Fatima Khan",
+    goal: "Get a job in AI / Data Science",
+    bootcamp: "AI Bootcamp (Cohort 18)",
+    quizScore: 4,
     quizTotal: 4,
-    topGap: "SQL JOINs & Aggregations",
-    risk: "High Risk",
-    lastActive: "3 days ago",
+    topGap: "None — Perfect Score",
+    risk: "On Track",
+    lastActive: "Today",
   },
 ];
 
@@ -83,38 +83,34 @@ const students: Student[] = [
 
 const totalLearners = students.length;
 const avgScore = Math.round(
-  (students.reduce((sum, s) => sum + (s.quizScore / s.quizTotal) * 100, 0) /
-    students.length)
+  students.reduce((sum, s) => sum + (s.quizScore / s.quizTotal) * 100, 0) /
+    students.length
 );
 const highRiskCount = students.filter((s) => s.risk === "High Risk").length;
 
 // ── Risk Badge ─────────────────────────────────────────────────────────────
 
 function RiskBadge({ risk }: { risk: RiskLevel }) {
-  const config: Record<RiskLevel, { bg: string; text: string; dot: string }> = {
-    "High Risk": {
-      bg: "bg-red-100",
-      text: "text-red-700",
-      dot: "bg-red-500",
-    },
-    Monitor: {
-      bg: "bg-yellow-100",
-      text: "text-yellow-700",
-      dot: "bg-yellow-500",
-    },
-    "On Track": {
-      bg: "bg-green-100",
-      text: "text-green-700",
-      dot: "bg-green-500",
-    },
-  };
-  const c = config[risk];
+  if (risk === "High Risk") {
+    return (
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-red-600 text-white shadow-sm shadow-red-400">
+        <span className="w-1.5 h-1.5 rounded-full bg-red-200 animate-pulse"></span>
+        High Risk
+      </span>
+    );
+  }
+  if (risk === "Monitor") {
+    return (
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
+        <span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
+        Monitor
+      </span>
+    );
+  }
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${c.bg} ${c.text}`}
-    >
-      <span className={`w-1.5 h-1.5 rounded-full ${c.dot}`}></span>
-      {risk}
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+      <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+      On Track
     </span>
   );
 }
@@ -144,24 +140,33 @@ function ScoreBar({ score, total }: { score: number; total: number }) {
 
 export default function InstructorDashboard() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: "#002333" }}>
       {/* Top nav */}
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-10">
+      <header
+        className="border-b sticky top-0 z-10"
+        style={{ backgroundColor: "#002333", borderColor: "#003a52" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-xl font-black" style={{ color: "#FF4D1C" }}>
+            <span className="text-xl font-black" style={{ color: "#99d930" }}>
               atomcamp
             </span>
-            <span className="hidden sm:block text-gray-300">|</span>
-            <span className="hidden sm:block text-sm font-semibold text-gray-500">
+            <span className="hidden sm:block" style={{ color: "#004d6b" }}>|</span>
+            <span
+              className="hidden sm:block text-sm font-semibold"
+              style={{ color: "#99d930" }}
+            >
               Instructor Dashboard
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-400 hidden sm:block">
+            <span className="text-xs hidden sm:block" style={{ color: "#5a9ab0" }}>
               Live · Updated just now
             </span>
-            <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-sm font-bold text-orange-600">
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
+              style={{ backgroundColor: "#003a52", color: "#99d930" }}
+            >
               I
             </div>
           </div>
@@ -171,10 +176,10 @@ export default function InstructorDashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* Page title */}
         <div>
-          <h1 className="text-2xl font-black text-gray-900">
+          <h1 className="text-2xl font-black" style={{ color: "#99d930" }}>
             Learner Intelligence
           </h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm mt-1" style={{ color: "#5a9ab0" }}>
             Real-time gap analysis and intervention signals across all active
             bootcamps.
           </p>
@@ -183,34 +188,51 @@ export default function InstructorDashboard() {
         {/* KPI Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Total Learners */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
+          <div
+            className="rounded-2xl border p-5 flex items-center gap-4"
+            style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
+          >
             <div
               className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-              style={{ backgroundColor: "#fff1ed" }}
+              style={{ backgroundColor: "#002333" }}
             >
               👥
             </div>
             <div>
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+              <p
+                className="text-xs font-semibold uppercase tracking-wider"
+                style={{ color: "#5a9ab0" }}
+              >
                 Total Active Learners
               </p>
-              <p className="text-3xl font-black text-gray-900 leading-none mt-1">
+              <p
+                className="text-3xl font-black leading-none mt-1"
+                style={{ color: "#99d930" }}
+              >
                 {totalLearners}
               </p>
-              <p className="text-xs text-gray-400 mt-0.5">Across 4 bootcamps</p>
+              <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
+                Across 4 bootcamps
+              </p>
             </div>
           </div>
 
           {/* Avg Quiz Score */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
+          <div
+            className="rounded-2xl border p-5 flex items-center gap-4"
+            style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
+          >
             <div
               className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-              style={{ backgroundColor: "#eff6ff" }}
+              style={{ backgroundColor: "#002333" }}
             >
               📊
             </div>
             <div>
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+              <p
+                className="text-xs font-semibold uppercase tracking-wider"
+                style={{ color: "#5a9ab0" }}
+              >
                 Average Quiz Score
               </p>
               <p
@@ -226,25 +248,34 @@ export default function InstructorDashboard() {
               >
                 {avgScore}%
               </p>
-              <p className="text-xs text-gray-400 mt-0.5">
+              <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
                 Cohort diagnostic average
               </p>
             </div>
           </div>
 
           {/* High Risk */}
-          <div className="bg-white rounded-2xl border border-red-100 shadow-sm p-5 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center text-2xl flex-shrink-0">
+          <div
+            className="rounded-2xl border p-5 flex items-center gap-4"
+            style={{ backgroundColor: "#003a52", borderColor: "#7f1d1d" }}
+          >
+            <div
+              className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+              style={{ backgroundColor: "#450a0a" }}
+            >
               🚨
             </div>
             <div>
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+              <p
+                className="text-xs font-semibold uppercase tracking-wider"
+                style={{ color: "#5a9ab0" }}
+              >
                 High-Risk Students
               </p>
-              <p className="text-3xl font-black text-red-600 leading-none mt-1">
+              <p className="text-3xl font-black text-red-500 leading-none mt-1">
                 {highRiskCount}
               </p>
-              <p className="text-xs text-gray-400 mt-0.5">
+              <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
                 Need immediate intervention
               </p>
             </div>
@@ -252,20 +283,26 @@ export default function InstructorDashboard() {
         </div>
 
         {/* Actionable Intelligence Table */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div
+          className="rounded-2xl border overflow-hidden"
+          style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
+        >
           {/* Table header */}
-          <div className="px-5 py-4 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div
+            className="px-5 py-4 border-b flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+            style={{ borderColor: "#004d6b" }}
+          >
             <div>
-              <h2 className="text-base font-bold text-gray-900">
+              <h2 className="text-base font-bold" style={{ color: "#99d930" }}>
                 Learner Gap Analysis
               </h2>
-              <p className="text-xs text-gray-400 mt-0.5">
+              <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
                 Sorted by intervention priority
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-red-600 text-white">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-200"></span>
                 {highRiskCount} High Risk
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
@@ -283,28 +320,49 @@ export default function InstructorDashboard() {
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-gray-50 border-b border-gray-100">
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                <tr
+                  className="border-b"
+                  style={{ backgroundColor: "#002333", borderColor: "#004d6b" }}
+                >
+                  <th
+                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: "#5a9ab0" }}
+                  >
                     Learner
                   </th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  <th
+                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: "#5a9ab0" }}
+                  >
                     Enrolled Bootcamp
                   </th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  <th
+                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: "#5a9ab0" }}
+                  >
                     Quiz Score
                   </th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  <th
+                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: "#5a9ab0" }}
+                  >
                     Top Knowledge Gap
                   </th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  <th
+                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: "#5a9ab0" }}
+                  >
                     Status
                   </th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  <th
+                    className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: "#5a9ab0" }}
+                  >
                     Last Active
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-50">
+              <tbody>
                 {[...students]
                   .sort((a, b) => {
                     const order: Record<RiskLevel, number> = {
@@ -317,14 +375,26 @@ export default function InstructorDashboard() {
                   .map((student) => (
                     <tr
                       key={student.id}
-                      className="hover:bg-gray-50 transition-colors"
+                      className="border-b transition-colors"
+                      style={{
+                        borderColor: "#004d6b",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.backgroundColor = "#002d42")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.backgroundColor = "transparent")
+                      }
                     >
                       {/* Learner */}
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
                           <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black text-white flex-shrink-0"
-                            style={{ backgroundColor: "#FF4D1C" }}
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black flex-shrink-0"
+                            style={{
+                              backgroundColor: "#99d930",
+                              color: "#002333",
+                            }}
                           >
                             {student.name
                               .split(" ")
@@ -332,10 +402,10 @@ export default function InstructorDashboard() {
                               .join("")}
                           </div>
                           <div>
-                            <p className="font-semibold text-gray-900">
+                            <p className="font-semibold text-white">
                               {student.name}
                             </p>
-                            <p className="text-xs text-gray-400">
+                            <p className="text-xs" style={{ color: "#5a9ab0" }}>
                               {student.goal}
                             </p>
                           </div>
@@ -344,7 +414,7 @@ export default function InstructorDashboard() {
 
                       {/* Bootcamp */}
                       <td className="px-5 py-4">
-                        <span className="text-gray-700 font-medium">
+                        <span className="font-medium" style={{ color: "#99d930" }}>
                           {student.bootcamp}
                         </span>
                       </td>
@@ -360,11 +430,12 @@ export default function InstructorDashboard() {
                       {/* Gap */}
                       <td className="px-5 py-4">
                         <span
-                          className={`text-sm font-medium ${
-                            student.topGap.startsWith("None")
-                              ? "text-green-600"
-                              : "text-gray-800"
-                          }`}
+                          className="text-sm font-medium"
+                          style={{
+                            color: student.topGap.startsWith("None")
+                              ? "#10B981"
+                              : "#e2e8f0",
+                          }}
                         >
                           {student.topGap}
                         </span>
@@ -376,7 +447,7 @@ export default function InstructorDashboard() {
                       </td>
 
                       {/* Last active */}
-                      <td className="px-5 py-4 text-xs text-gray-400">
+                      <td className="px-5 py-4 text-xs" style={{ color: "#5a9ab0" }}>
                         {student.lastActive}
                       </td>
                     </tr>
@@ -386,7 +457,7 @@ export default function InstructorDashboard() {
           </div>
 
           {/* Mobile cards */}
-          <div className="md:hidden divide-y divide-gray-100">
+          <div className="md:hidden divide-y" style={{ borderColor: "#004d6b" }}>
             {[...students]
               .sort((a, b) => {
                 const order: Record<RiskLevel, number> = {
@@ -397,12 +468,16 @@ export default function InstructorDashboard() {
                 return order[a.risk] - order[b.risk];
               })
               .map((student) => (
-                <div key={student.id} className="p-4 space-y-3">
+                <div
+                  key={student.id}
+                  className="p-4 space-y-3"
+                  style={{ borderColor: "#004d6b" }}
+                >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div
-                        className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-black text-white flex-shrink-0"
-                        style={{ backgroundColor: "#FF4D1C" }}
+                        className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-black flex-shrink-0"
+                        style={{ backgroundColor: "#99d930", color: "#002333" }}
                       >
                         {student.name
                           .split(" ")
@@ -410,10 +485,12 @@ export default function InstructorDashboard() {
                           .join("")}
                       </div>
                       <div>
-                        <p className="font-semibold text-gray-900 text-sm">
+                        <p className="font-semibold text-white text-sm">
                           {student.name}
                         </p>
-                        <p className="text-xs text-gray-400">{student.goal}</p>
+                        <p className="text-xs" style={{ color: "#5a9ab0" }}>
+                          {student.goal}
+                        </p>
                       </div>
                     </div>
                     <RiskBadge risk={student.risk} />
@@ -421,23 +498,32 @@ export default function InstructorDashboard() {
 
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     <div>
-                      <p className="text-gray-400 font-semibold uppercase tracking-wide mb-0.5">
+                      <p
+                        className="font-semibold uppercase tracking-wide mb-0.5"
+                        style={{ color: "#5a9ab0" }}
+                      >
                         Bootcamp
                       </p>
-                      <p className="text-gray-700 font-medium">
+                      <p className="font-medium" style={{ color: "#99d930" }}>
                         {student.bootcamp}
                       </p>
                     </div>
                     <div>
-                      <p className="text-gray-400 font-semibold uppercase tracking-wide mb-0.5">
+                      <p
+                        className="font-semibold uppercase tracking-wide mb-0.5"
+                        style={{ color: "#5a9ab0" }}
+                      >
                         Last Active
                       </p>
-                      <p className="text-gray-700">{student.lastActive}</p>
+                      <p className="text-white">{student.lastActive}</p>
                     </div>
                   </div>
 
                   <div>
-                    <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-1">
+                    <p
+                      className="text-xs font-semibold uppercase tracking-wide mb-1"
+                      style={{ color: "#5a9ab0" }}
+                    >
                       Quiz Score
                     </p>
                     <ScoreBar
@@ -447,15 +533,19 @@ export default function InstructorDashboard() {
                   </div>
 
                   <div>
-                    <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-0.5">
+                    <p
+                      className="text-xs font-semibold uppercase tracking-wide mb-0.5"
+                      style={{ color: "#5a9ab0" }}
+                    >
                       Top Knowledge Gap
                     </p>
                     <p
-                      className={`text-sm font-medium ${
-                        student.topGap.startsWith("None")
-                          ? "text-green-600"
-                          : "text-gray-800"
-                      }`}
+                      className="text-sm font-medium"
+                      style={{
+                        color: student.topGap.startsWith("None")
+                          ? "#10B981"
+                          : "#e2e8f0",
+                      }}
                     >
                       {student.topGap}
                     </p>
@@ -466,20 +556,26 @@ export default function InstructorDashboard() {
         </div>
 
         {/* Intervention Recommendations */}
-        <div className="bg-gray-900 rounded-2xl p-5 text-white">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-gray-300 mb-4 flex items-center gap-2">
+        <div
+          className="rounded-2xl p-5 border"
+          style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
+        >
+          <h3
+            className="text-sm font-bold uppercase tracking-wider mb-4 flex items-center gap-2"
+            style={{ color: "#99d930" }}
+          >
             <span>⚡</span> Recommended Instructor Actions
           </h3>
           <div className="space-y-3">
-            <div className="flex items-start gap-3 p-3 rounded-xl bg-red-500/10 border border-red-500/20">
+            <div className="flex items-start gap-3 p-3 rounded-xl bg-red-500/10 border border-red-500/30">
               <span className="text-red-400 text-lg flex-shrink-0">🚨</span>
               <div>
                 <p className="text-sm font-semibold text-red-300">
-                  Immediate: Reach out to Fatima Khan & Zainab Hussain
+                  Immediate: Reach out to Abdullah
                 </p>
-                <p className="text-xs text-gray-400 mt-0.5">
-                  Both scored 25% on their diagnostic quiz. Schedule a 1:1
-                  catch-up session before the next class.
+                <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
+                  Scored 50% on the Agentic AI diagnostic. Key gap is Advanced
+                  Prompting — schedule a 1:1 before Module 2.
                 </p>
               </div>
             </div>
@@ -487,11 +583,11 @@ export default function InstructorDashboard() {
               <span className="text-yellow-400 text-lg flex-shrink-0">👀</span>
               <div>
                 <p className="text-sm font-semibold text-yellow-300">
-                  Monitor: Sara Malik needs REST API support
+                  Monitor: Sara Malik & Ahmed Raza need targeted support
                 </p>
-                <p className="text-xs text-gray-400 mt-0.5">
-                  Scored 50% — share the REST API pre-reading resource before
-                  Module 3 of Agentic AI Bootcamp.
+                <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
+                  Sara needs REST API pre-reading before Module 3. Ahmed should
+                  revisit DAX Calculated Columns before the next Power BI session.
                 </p>
               </div>
             </div>
@@ -499,11 +595,11 @@ export default function InstructorDashboard() {
               <span className="text-green-400 text-lg flex-shrink-0">🏆</span>
               <div>
                 <p className="text-sm font-semibold text-green-300">
-                  Highlight: Usman Tariq scored 100%
+                  Highlight: Usman Tariq & Fatima Khan scored 100%
                 </p>
-                <p className="text-xs text-gray-400 mt-0.5">
-                  Consider assigning as a peer mentor for the Automation
-                  Bootcamp cohort.
+                <p className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>
+                  Both are strong candidates for peer mentorship roles in their
+                  respective bootcamp cohorts.
                 </p>
               </div>
             </div>
@@ -511,8 +607,8 @@ export default function InstructorDashboard() {
         </div>
 
         {/* Footer */}
-        <footer className="text-center text-xs text-gray-400 pb-4">
-          <span className="font-bold" style={{ color: "#FF4D1C" }}>
+        <footer className="text-center text-xs pb-4" style={{ color: "#5a9ab0" }}>
+          <span className="font-bold" style={{ color: "#99d930" }}>
             atomcamp
           </span>{" "}
           Smart LMS · Instructor View · Built for atomcamp Hackathon 2025
