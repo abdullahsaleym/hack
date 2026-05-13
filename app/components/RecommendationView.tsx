@@ -176,7 +176,7 @@ export default function RecommendationView({
           First Module: {data.firstModuleTopic}
         </h4>
         <p className="text-sm text-gray-400 mb-4">
-          Take a 4-question diagnostic quiz. Claude AI will analyse your answers
+          Take a 4-question diagnostic quiz. Our AI will analyse your answers
           and show you exactly what to focus on before your first class.
         </p>
         <button

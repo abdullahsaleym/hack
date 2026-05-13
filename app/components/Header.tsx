@@ -34,7 +34,7 @@ export default function Header() {
             </span>
             <span>80% Job Placement</span>
             <span className="font-semibold" style={{ color: "#FF4D1C" }}>
-              Powered by Claude AI
+              AI-Powered
             </span>
           </div>
 

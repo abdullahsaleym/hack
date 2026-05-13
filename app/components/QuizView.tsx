@@ -172,7 +172,7 @@ export default function QuizView({
           {isLoading ? (
             <>
               <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full spinner"></span>
-              Claude is analysing your answers...
+              AI is analysing your answers...
             </>
           ) : (
             <>
@@ -182,7 +182,7 @@ export default function QuizView({
           )}
         </button>
         <p className="text-center text-xs text-gray-400 mt-3">
-          Claude AI will identify exactly what you need to work on before your
+          Our AI will identify exactly what you need to work on before your
           first atomcamp class
         </p>
       </div>

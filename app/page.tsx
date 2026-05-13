@@ -113,7 +113,7 @@ function LoadingScreen({ message }: { message: string }) {
         </div>
       </div>
       <p className="text-xs text-gray-400 max-w-xs text-center">
-        Claude AI is personalising this for you using real atomcamp course data
+        AI is personalising this for you using real atomcamp course data
       </p>
     </div>
   );
@@ -329,7 +329,7 @@ export default function Home() {
 
         {/* ── Step: Loading recommendation ── */}
         {step === "loading_recommendation" && (
-          <LoadingScreen message="Claude is analysing your profile and building your personalised learning path..." />
+          <LoadingScreen message="AI is analysing your profile and building your personalised learning path..." />
         )}
 
         {/* ── Step: Recommendation ── */}
@@ -344,7 +344,7 @@ export default function Home() {
 
         {/* ── Step: Loading quiz ── */}
         {step === "loading_quiz" && (
-          <LoadingScreen message="Claude is generating your diagnostic quiz..." />
+          <LoadingScreen message="AI is generating your diagnostic quiz..." />
         )}
 
         {/* ── Step: Quiz ── */}
@@ -359,7 +359,7 @@ export default function Home() {
 
         {/* ── Step: Loading analysis ── */}
         {step === "loading_analysis" && (
-          <LoadingScreen message="Claude is analysing your answers and identifying learning gaps..." />
+          <LoadingScreen message="AI is analysing your answers and identifying learning gaps..." />
         )}
 
         {/* ── Step: Analysis ── */}

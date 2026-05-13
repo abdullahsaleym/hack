@@ -81,7 +81,7 @@ export default function OnboardingForm({
           <span style={{ color: "#FF4D1C" }}>Learning Path</span>
         </h1>
         <p className="text-gray-500 text-sm leading-relaxed max-w-sm mx-auto">
-          Answer 5 quick questions and Claude AI will recommend the best
+          Answer 5 quick questions and our AI will recommend the best
           atomcamp course for your background and goals.
         </p>
       </div>
@@ -266,7 +266,7 @@ export default function OnboardingForm({
             {isLoading ? (
               <>
                 <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full spinner"></span>
-                Claude is building your path...
+                AI is building your path...
               </>
             ) : (
               <>

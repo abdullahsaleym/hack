@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "atomcamp Smart LMS — Personalised AI Learning Paths",
   description:
-    "atomcamp's Smart Adaptive Learning Management System. Get a personalised AI course recommendation, learning path, and gap analysis — powered by Claude AI. 10,000+ learners trained, 80% job placement.",
+    "atomcamp's Smart Adaptive Learning Management System. Get a personalised AI course recommendation, learning path, and gap analysis. 10,000+ learners trained, 80% job placement.",
   keywords:
     "atomcamp, AI bootcamp, data analytics, Pakistan, machine learning, LMS, learning management system",
 };
