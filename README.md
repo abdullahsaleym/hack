@@ -1,67 +1,136 @@
-# atomcamp Smart LMS (Hackathon demo)
+<div align="center">
 
-Next.js app that demonstrates an **AI-guided learner journey** for [atomcamp](https://atomcamp.com): profile capture → personalised course recommendation → diagnostic quiz → gap analysis and study plan. A separate **instructor view** shows cohort-style metrics using **static mock data** (not wired to real learners or the APIs).
+# 🧠 Atomcamp Smart Adaptive LMS
 
-The **canonical application** lives at the **repository root** (`app/`, `lib/`, `package.json`).
+### *AUREX'26 Hackathon Submission*
 
-A nested duplicate **`my-hackathon-app/`** (a second full copy of the app) was **removed from version control**. If you still see `my-hackathon-app/node_modules` on disk, Windows may have kept a few locked native binaries (Tailwind / Lightning CSS `.node` files). Close terminals and the IDE using this repo, then delete that folder manually, or reboot and delete it. It is listed in `.gitignore` so it is not committed again.
+[![Next.js](https://img.shields.io/badge/Next.js-16+-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-06B6D4?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Claude AI](https://img.shields.io/badge/Claude_3.5_Sonnet-Anthropic-D97706?style=for-the-badge)](https://www.anthropic.com/)
+[![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
 
-## Prerequisites
+**Live Demo →** [atomcamp-smart-lms.vercel.app](https://hack-blond.vercel.app)
 
-- Node.js 20+ (recommended)
-- An [Anthropic](https://www.anthropic.com/) API key
+</div>
 
-## Setup
+---
+
+## 📌 Problem Statement
+
+> atomcamp is an emerging tech education ecosystem offering a range of programs, bootcamps, and learning resources designed to upskill learners across Pakistan and beyond. As the learner base grows and course offerings diversify, atomcamp faces a familiar but critical challenge: **no two learners are alike — yet most learning systems treat them as if they are.**
+>
+> Today, learners navigate a static catalogue of content with little personalization, instructors have limited visibility into who is struggling and why, and the platform lacks a unified system that ties together goals, progress, feedback, and outcomes.
+>
+> Our solution is an **integrated Smart Adaptive LMS** that personalises the learning journey for each student while giving instructors actionable intelligence to improve outcomes at scale.
+
+---
+
+## ✨ Key Features
+
+| Feature | Description |
+|---|---|
+| 🎯 **AI-Powered Onboarding** | Adaptive profile assessment to match learners with their ideal tech path |
+| 🗺️ **Dynamic Course Architect** | Personalised module generation based on atomcamp's existing program offerings |
+| ⚡ **Real-time Diagnostic Engine** | Smart quizzes that adapt to the student's mastery of specific tech concepts |
+| 📊 **Pedagogical Gap Analysis** | Instant feedback reports identifying specific learning roadblocks and tailored study plans |
+| 🖥️ **Instructor Intelligence Cockpit** | A high-level analytics dashboard for administrators to monitor at-risk cohorts |
+
+---
+
+## 🏗️ Architecture Overview
+
+```
+Student Flow
+────────────
+Onboarding Form → Claude AI → Personalised Course Recommendation
+       ↓
+Diagnostic Quiz → Claude AI → Gap Analysis Report + 7-Day Study Plan
+
+Instructor Flow
+───────────────
+/instructor → Mock Learner Data → Progress Bars + Risk Badges + Action Items
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Frontend** | Next.js 16+ (App Router) |
+| **Styling** | Tailwind CSS v4 |
+| **AI Engine** | Anthropic Claude 3.5 Sonnet API |
+| **Deployment** | Vercel |
+| **Language** | TypeScript |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- An [Anthropic API Key](https://console.anthropic.com/)
+
+### Installation
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/abdullahsaleym/hack.git
+cd hack
+
+# 2. Install dependencies
 npm install
+
+# 3. Set up environment variables
+cp .env.example .env.local
+# Add your key to .env.local:
+# ANTHROPIC_API_KEY=sk-ant-...
+
+# 4. Launch the application
+npm run dev
 ```
 
-Create `.env.local` in the project root:
+Open [http://localhost:3000](http://localhost:3000) to see the Student Portal.
+Open [http://localhost:3000/instructor](http://localhost:3000/instructor) to see the Instructor Dashboard.
 
-```bash
-ANTHROPIC_API_KEY=your_key_here
-```
+---
 
-## Scripts
+## 📸 Application Screens
 
-| Command       | Description        |
-| ------------- | ------------------ |
-| `npm run dev` | Local dev server   |
-| `npm run build` | Production build |
-| `npm start`   | Run production build |
-| `npm run lint` | ESLint           |
+### 🎓 Student Portal
+1. **Onboarding** — Fill in your background, goal, and experience level
+2. **AI Recommendation** — Receive a personalised course and learning path
+3. **Diagnostic Quiz** — Take a 4-question AI-generated knowledge check
+4. **Gap Analysis** — Get a detailed report of gaps + a 7-day study plan
 
-Dev server: [http://localhost:3000](http://localhost:3000)
+### 📊 Instructor Dashboard
+- Real-time cohort overview with KPI cards (active learners, avg. progress, at-risk count)
+- Colour-coded student cards with progress bars and status badges
+- AI-generated intervention recommendations per student
 
-## Routes
+---
 
-| Path | Description |
-| ---- | ----------- |
-| `/` | **Student portal**: onboarding form → recommendation → quiz → gap analysis (client state machine; calls APIs below). |
-| `/instructor` | **Instructor dashboard**: KPI cards, learner cards, suggested actions — all from `lib/mockData.ts`. |
+## 👥 Team
 
-## API routes (server)
+| Name | Role |
+|---|---|
+| **Abdullah Saleem** | Full-Stack Development & AI Integration |
+| **Manzer Bibi** | Research, UX & Presentation |
 
-All use the Anthropic SDK and model **`claude-sonnet-4-5`**. They expect JSON bodies and return JSON (or `{ "error": "..." }` with 500 on failure).
+---
 
-| Method & path | Body (summary) | Purpose |
-| --------------- | ---------------- | -------- |
-| `POST /api/recommend` | `name`, `background`, `goal`, `experience`, `age` | Chooses an atomcamp course from prompt-embedded catalog copy and returns learning path + first module topic. |
-| `POST /api/quiz` | `moduleTopic`, `courseName` | Generates 4 multiple-choice questions for that module. |
-| `POST /api/analyze` | `questions`, `userAnswers`, `moduleTopic`, `courseName`, `learnerName` | Scores answers and returns gap analysis, strengths, study plan text. |
+## 🏆 Hackathon
 
-Course names, dates, and modules in prompts are **maintained in code**; update `app/api/recommend/route.ts` and `app/api/analyze/route.ts` when the real catalog changes.
+**Event:** AUREX'26 Hackathon
+**Organiser:** atomcamp
+**Track:** EdTech / AI-Powered Learning
 
-## Stack
+---
 
-- Next.js 16 (App Router), React 19, Tailwind CSS 4
-- `@anthropic-ai/sdk`
+<div align="center">
 
-## Deploy
+Built with ❤️ for atomcamp · AUREX'26
 
-Configured for [Vercel](https://vercel.com/) (`vercel.json` sets `framework: nextjs`). Set `ANTHROPIC_API_KEY` in the project’s environment variables. For a public deployment, consider rate limiting and auth on `/api/*` (not implemented in this demo).
+*"Personalised learning for every Pakistani learner."*
 
-## License / context
-
-Built as a hackathon-style demo; instructor metrics are illustrative only.
+</div>
