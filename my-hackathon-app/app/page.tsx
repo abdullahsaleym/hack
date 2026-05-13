@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Header from "./components/Header";
 import OnboardingForm from "./components/OnboardingForm";
 import RecommendationView from "./components/RecommendationView";
 import QuizView from "./components/QuizView";
@@ -297,8 +296,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header />
-
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-8">
         {/* Step indicator — hide on loading screens */}
         {!isLoading && (
