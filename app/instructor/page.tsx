@@ -375,16 +375,10 @@ export default function InstructorDashboard() {
                   .map((student) => (
                     <tr
                       key={student.id}
-                      className="border-b transition-colors"
+                      className="border-b transition-colors hover:bg-[#002d42]"
                       style={{
                         borderColor: "#004d6b",
                       }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.backgroundColor = "#002d42")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.backgroundColor = "transparent")
-                      }
                     >
                       {/* Learner */}
                       <td className="px-5 py-4">
