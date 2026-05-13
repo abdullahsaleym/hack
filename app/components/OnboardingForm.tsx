@@ -61,7 +61,7 @@ export default function OnboardingForm({
     `w-full px-4 py-3 rounded-xl border text-sm font-medium outline-none focus:ring-2 transition-all ${
       errors[field]
         ? "border-red-300 focus:ring-red-200 bg-red-50"
-        : "border-gray-200 focus:ring-orange-200 focus:border-orange-400 bg-white"
+        : "border-gray-200 focus:ring-teal-200 focus:border-teal-400 bg-white"
     }`;
 
   return (

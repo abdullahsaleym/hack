@@ -131,7 +131,7 @@ export default function QuizView({
                   className={`w-full text-left px-4 py-3 rounded-xl border text-sm font-medium transition-all flex items-center gap-3 ${
                     isSelected
                       ? "border-transparent text-white shadow-sm"
-                      : "border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50"
+                      : "border-gray-200 text-gray-700 hover:border-teal-300 hover:bg-teal-50"
                   } disabled:cursor-not-allowed`}
                   style={
                     isSelected
