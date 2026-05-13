@@ -75,12 +75,12 @@ export default function OnboardingForm({
           <span className="w-2 h-2 rounded-full bg-current"></span>
           AI-Powered Course Matching
         </div>
-        <h1 className="text-3xl font-black text-gray-900 mb-3 leading-tight">
+        <h1 className="text-3xl font-black text-white mb-3 leading-tight">
           Find Your Perfect
           <br />
           <span style={{ color: "#0d9488" }}>Learning Path</span>
         </h1>
-        <p className="text-gray-500 text-sm leading-relaxed max-w-sm mx-auto">
+        <p className="text-sm leading-relaxed max-w-sm mx-auto" style={{ color: "#5a9ab0" }}>
           Answer 5 quick questions and our AI will recommend the best
           atomcamp course for your background and goals.
         </p>
@@ -95,7 +95,8 @@ export default function OnboardingForm({
         ].map((stat) => (
           <div
             key={stat.label}
-            className="text-center p-3 rounded-xl bg-white border border-gray-100 shadow-sm"
+            className="text-center p-3 rounded-xl border shadow-sm"
+            style={{ backgroundColor: "#003a52", borderColor: "#004d6b" }}
           >
             <div
               className="text-lg font-black"
@@ -103,7 +104,7 @@ export default function OnboardingForm({
             >
               {stat.value}
             </div>
-            <div className="text-xs text-gray-400 mt-0.5">{stat.label}</div>
+            <div className="text-xs mt-0.5" style={{ color: "#5a9ab0" }}>{stat.label}</div>
           </div>
         ))}
       </div>
@@ -278,11 +279,12 @@ export default function OnboardingForm({
         </form>
 
         {/* Footer note */}
-        <p className="text-center text-xs text-gray-400 mt-4">
+        <p className="text-center text-xs mt-4" style={{ color: "#5a9ab0" }}>
           Classes run Mon / Tue / Thu · 7–9 PM on Google Meet ·{" "}
           <a
             href="mailto:admissions@atomcamp.com"
-            className="underline hover:text-gray-600"
+            className="underline hover:text-white"
+            style={{ color: "#0d9488" }}
           >
             admissions@atomcamp.com
           </a>

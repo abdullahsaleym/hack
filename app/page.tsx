@@ -95,7 +95,7 @@ function LoadingScreen({ message }: { message: string }) {
         </div>
       </div>
       <div className="text-center">
-        <p className="text-sm font-semibold text-gray-700">{message}</p>
+        <p className="text-sm font-semibold text-white">{message}</p>
         <div className="flex items-center justify-center gap-1 mt-2">
           <span
             className="w-2 h-2 rounded-full dot-1"
@@ -111,7 +111,7 @@ function LoadingScreen({ message }: { message: string }) {
           ></span>
         </div>
       </div>
-      <p className="text-xs text-gray-400 max-w-xs text-center">
+      <p className="text-xs max-w-xs text-center" style={{ color: "#5a9ab0" }}>
         AI is personalising this for you using real atomcamp course data
       </p>
     </div>
@@ -142,7 +142,7 @@ function StepIndicator({ step }: { step: Step }) {
                   ? "text-white"
                   : i === currentIndex
                   ? "text-white shadow-md"
-                  : "bg-gray-100 text-gray-400"
+                  : "bg-[#003a52] text-[#5a9ab0]"
               }`}
               style={
                 i <= currentIndex
@@ -154,7 +154,7 @@ function StepIndicator({ step }: { step: Step }) {
             </div>
             <span
               className={`text-xs mt-1 font-medium ${
-                i === currentIndex ? "text-gray-800" : "text-gray-400"
+                i === currentIndex ? "text-white" : "text-[#5a9ab0]"
               }`}
             >
               {s.label}
@@ -376,8 +376,8 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full border-t border-gray-100 bg-white py-4">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
+      <footer className="w-full border-t py-4" style={{ borderColor: "#003a52" }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs" style={{ color: "#5a9ab0" }}>
           <span>
             <span className="font-bold" style={{ color: "#0d9488" }}>
               atomcamp
@@ -388,7 +388,7 @@ export default function Home() {
             Co-founder: Dr. Naveed Iftikhar ·{" "}
             <a
               href="mailto:admissions@atomcamp.com"
-              className="underline hover:text-gray-600"
+              className="underline hover:text-white"
             >
               admissions@atomcamp.com
             </a>

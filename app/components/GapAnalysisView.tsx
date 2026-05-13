@@ -60,10 +60,10 @@ export default function GapAnalysisView({
         >
           <span>📊</span> Your Gap Analysis
         </div>
-        <h2 className="text-2xl font-black text-gray-900">
+        <h2 className="text-2xl font-black text-white">
           {learnerName}&apos;s Learning Report
         </h2>
-        <p className="text-gray-500 text-sm mt-1">
+        <p className="text-sm mt-1" style={{ color: "#5a9ab0" }}>
           {moduleTopic} · {courseName}
         </p>
       </div>
@@ -236,7 +236,7 @@ export default function GapAnalysisView({
       </div>
 
       {/* atomcamp footer */}
-      <div className="text-center text-xs text-gray-400 pb-6 space-y-1">
+      <div className="text-center text-xs pb-6 space-y-1" style={{ color: "#5a9ab0" }}>
         <p>
           <span className="font-bold" style={{ color: "#0d9488" }}>
             atomcamp

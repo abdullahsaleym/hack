@@ -62,10 +62,10 @@ export default function QuizView({
         >
           <span>🧠</span> Diagnostic Quiz
         </div>
-        <h2 className="text-2xl font-black text-gray-900">
+        <h2 className="text-2xl font-black text-white">
           {data.moduleTopic}
         </h2>
-        <p className="text-gray-500 text-sm mt-1">
+        <p className="text-sm mt-1" style={{ color: "#5a9ab0" }}>
           Hey {learnerName}, answer all 4 questions — there&apos;s no pressure,
           this helps Claude understand where to focus your learning.
         </p>
@@ -181,7 +181,7 @@ export default function QuizView({
             </>
           )}
         </button>
-        <p className="text-center text-xs text-gray-400 mt-3">
+        <p className="text-center text-xs mt-3" style={{ color: "#5a9ab0" }}>
           Our AI will identify exactly what you need to work on before your
           first atomcamp class
         </p>

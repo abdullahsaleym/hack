@@ -54,10 +54,10 @@ export default function RecommendationView({
         >
           <span>✨</span> Your Personalised Path is Ready
         </div>
-        <h2 className="text-2xl font-black text-gray-900">
+        <h2 className="text-2xl font-black text-white">
           Hey {learnerName}! Here&apos;s your path 🎯
         </h2>
-        <p className="text-gray-500 text-sm mt-1">{data.encouragement}</p>
+        <p className="text-sm mt-1" style={{ color: "#5a9ab0" }}>{data.encouragement}</p>
       </div>
 
       {/* Recommended Course Card */}
@@ -200,7 +200,7 @@ export default function RecommendationView({
       </div>
 
       {/* Contact footer */}
-      <div className="text-center text-xs text-gray-400 pb-4">
+      <div className="text-center text-xs pb-4" style={{ color: "#5a9ab0" }}>
         Questions? Contact{" "}
         <a
           href="mailto:admissions@atomcamp.com"
@@ -210,7 +210,7 @@ export default function RecommendationView({
           admissions@atomcamp.com
         </a>{" "}
         or call{" "}
-        <a href="tel:+923022278371" className="underline">
+        <a href="tel:+923022278371" className="underline hover:text-white">
           +92-302-2278371
         </a>
       </div>
