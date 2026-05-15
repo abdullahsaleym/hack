@@ -310,7 +310,7 @@ export default function Home() {
               <strong>Something went wrong:</strong> {error}
               <br />
               <span className="text-xs text-red-500">
-                Make sure your ANTHROPIC_API_KEY is set in .env.local
+                Make sure your GROQ_API_KEY is set in Vercel / .env.local
               </span>
             </div>
           </div>
