@@ -1,7 +1,7 @@
-import Anthropic from "@anthropic-ai/sdk";
+import Groq from "groq-sdk";
 import { NextRequest, NextResponse } from "next/server";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const client = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function POST(req: NextRequest) {
   try {
@@ -74,18 +74,15 @@ Respond ONLY with valid JSON in this exact structure (no markdown, no explanatio
   ]
 }`;
 
-    const message = await client.messages.create({
-      model: "claude-sonnet-4-5",
-      max_tokens: 2000,
+    const chatCompletion = await client.chat.completions.create({
+      model: "llama3-70b-8192",
       messages: [{ role: "user", content: prompt }],
+      temperature: 0.5,
+      max_tokens: 2000,
+      response_format: { type: "json_object" },
     });
 
-    const content = message.content[0];
-    if (content.type !== "text") {
-      throw new Error("Unexpected response type from Claude");
-    }
-
-    let jsonText = content.text.trim();
+    let jsonText = chatCompletion.choices[0]?.message?.content?.trim() || "";
     if (jsonText.startsWith("```")) {
       jsonText = jsonText.replace(/^```[a-z]*\n?/, "").replace(/\n?```$/, "");
     }
